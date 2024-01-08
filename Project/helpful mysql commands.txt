@@ -1,0 +1,41 @@
+ALTER TABLE champions DROP FOREIGN KEY champions_fk_playstyles;
+ALTER TABLE champions ADD CONSTRAINT champions_fk_playstyles FOREIGN KEY(playstyleID) REFERENCES playstyles(playstyleID);
+
+champions_fk_playstyles
+champions_fk_playstyles
+/*CREATE TABLE administrators (  admin_id           INT            PRIMARY KEY   AUTO_INCREMENT,  email_address      VARCHAR(255)   NOT NULL,  password           VARCHAR(255)   NOT NULL,  first_name         VARCHAR(255)   NOT NULL,  last_name          VARCHAR(255)   NOT NULL);*/-- Insert data into the tablesINSERT INTO champions (championName, releaseDate, BECost, originID, playstyleID) VALUES('Teemo', '2023-04-12', '630', '2', '4'),('Garen', '2010-04-27', '450', '1', '4'),('Morgana', '2009-02-21', '1350', '14', '2'),('Amumu', '2009-06-26', '450', '1', '2'),('Veigar', '2009-07-24', '1350', '4', '2'),('Riven', '2011-09-14', '4800', '5', '1');
+
+SELECT 
+  TABLE_NAME,COLUMN_NAME,CONSTRAINT_NAME, REFERENCED_TABLE_NAME,REFERENCED_COLUMN_NAME
+FROM
+  INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+WHERE
+  REFERENCED_TABLE_SCHEMA = 'u204255896_leagueproject';
+
+ALTER TABLE skins
+ADD CONSTRAINT skins_fk_tiers
+FOREIGN KEY (skinTierID) REFERENCES skinsTiers(skinTierID);
+
+skins_ibfk_1
+skins_fk_champions
+ALTER TABLE skins
+ADD CONSTRAINT skins_fk_champions
+FOREIGN KEY (championName) REFERENCES champions(championName);
+
+
+ALTER TABLE skins
+DROP FOREIGN KEY skins_fk_tiers;
+ALTER TABLE skins
+DROP FOREIGN KEY skins_fk_champions;
+
+ALTER TABLE skins
+ADD CONSTRAINT skins_fk_champions
+FOREIGN KEY (championName) 
+REFERENCES champions(championName)
+ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE skins
+ADD CONSTRAINT skins_fk_tiers
+FOREIGN KEY (skinTierID) 
+REFERENCES skinsTiers(skinTierID)
+ON UPDATE CASCADE ON DELETE RESTRICT;
